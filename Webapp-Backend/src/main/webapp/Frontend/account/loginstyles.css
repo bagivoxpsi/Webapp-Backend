@@ -1,0 +1,296 @@
+:root {
+  --thin: 100;
+  --regular: 400;
+  --medium: 500;
+  --semi-bold:600;
+  --bold: 700;
+  --black: 900;
+
+  --primary-color: #3b82f6;
+  --primary-hover: #1d4ed8;
+  --bg-body: #f5f5f5;
+  --bg-white: #ffffff;
+  --bg-light: #fafafa;
+  --bg-nav: #fff;
+  --text-primary: #000000;
+  --text-secondary: #999999;
+  --text-white: white;
+  --border-light: #f0f0f0;
+  --border-gray: #ccc;
+  --toggle-inactive: #ddd;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --text-black: black;
+}
+
+/* Dark mode overrides for the login page */
+body.darkmode {
+  --bg-body: #121212;
+  --bg-white: #1e1e1e;
+  --bg-light: #2a2a2a;
+  --text-primary: #f5f5f5;
+  --text-secondary: #cccccc;
+  --border-light: #444;
+  --border-gray: #555;
+  --text-black: #ffffff;
+}
+
+body.darkmode .form-control::placeholder {
+    color: #cccccc !important; /* lighter gray for good contrast */
+    opacity: 1; /* ensures the color is applied in all browsers */
+}
+
+body.darkmode .login-card {
+  background-color: rgba(30, 30, 30, 0.95);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+}
+
+body.darkmode .form-control {
+  background-color: #2a2a2a;
+  color: #f5f5f5;
+  border-color: #555;
+}
+
+body.darkmode .form-label {
+  color: var(--text-primary);
+}
+
+body.darkmode .btn-primary {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+}
+
+body.darkmode .btn-outline {
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+body.darkmode .btn-outline:hover {
+  background-color: #3b82f6;
+  color: white;
+}
+
+body.darkmode .user-card {
+  background-color: rgba(30, 30, 30, 0.95);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+}
+
+body.darkmode .user-card .card-title,
+body.darkmode .user-card .card-text {
+  color: var(--text-primary);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-black);
+  background-color: var(--bg-body);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-image: url("https://images.splitshire.com/full/The-Modern-Minimalist-House-Amidst-Greenery_YANQH.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.login-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1); /* Light overlay by default */
+  transition: background 0.3s ease;
+  z-index: 0;
+}
+
+.login-card {
+  position: relative;
+  z-index: 1; /* Make sure card is above overlay */
+}
+
+.login-container::before {
+  background: rgba(0, 0, 0, 0.55); /* Darker overlay for dark mode */
+}
+
+
+.login-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 450px;
+  width: 100%;
+}
+
+.signup-body {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.signup-container {
+  min-height: 100vh;
+  padding: 2rem 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.signup-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.card-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-hover) 40%, transparent);
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-color: var(--primary-color) !important;
+  margin-bottom: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(29, 78, 216, 0.3);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 1.5rem 0;
+}
+
+.signup-text {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.footer-text {
+  text-align: center;
+  color: white;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#alert-container {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .login-card,
+  .signup-card {
+    padding: 1.5rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .custom-popup {
+    min-width: 250px;
+  }
+
+  .popup-container {
+    right: 10px;
+    left: 10px;
+  }
+}

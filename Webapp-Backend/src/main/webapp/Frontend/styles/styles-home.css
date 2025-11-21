@@ -1,0 +1,91 @@
+:root{
+    --thin: 100;
+    --regular: 400;
+    --medium: 500;
+    --semi-bold:600;
+    --bold: 700;
+    --black: 900;
+    
+    --NAV-BG: #FFFFFF;
+    --PAGE-BACKGROUND: #FDFDFD;
+    --SHADOW-COLOR: rgba(0, 0, 0, 0.153);
+    --ACCENT: #3b82f6;
+    --NAV-ITEM-COLOR: black;
+    --NAVBAR-COLOR:white;
+    --CONTAINER-COLOR: #FFFFFF;
+}
+
+.carousel {
+    margin: 0;
+    width: 96vw;
+    height: min(300px, 30vh);
+}
+
+.carousel-inner {
+    border-radius: 20px;
+    box-shadow: 0 3px 10px 1px rgba(0, 0, 0, 0.299);
+}
+
+.carousel-inner img {
+    position: relative;
+    z-index: -1;
+    filter: brightness(0.25);
+    object-fit: cover;
+    object-position: center;
+    height: min(300px, 30vh);
+}
+
+.message-container {
+    width: 100%;
+    padding-top: 0;
+    padding-left: 0.75em;
+}
+
+.content-wrapper {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px
+}
+
+.info-container {
+    background: var(--PAGE-BACKGROUND);
+    box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.299);
+    width: 97%;
+    border-radius: 20px;
+    overflow-y: auto;
+}
+
+.row-custom {
+    margin: 0;
+}
+
+html, body{
+    min-height:100%;
+}
+
+.circular-button {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #dc3545;
+    background-color: transparent;
+    color: #dc3545;
+    transition: all 0.3s ease;
+}
+
+.circular-button:focus{
+    width: 100px;
+    height: 100px;
+    border: 2px solid #dc3545;
+    background-color: transparent;
+    color: #dc3545;
+    transition: all 0.3s ease;
+}
+
+.circular-button.on {
+    background-color: #dc3545;
+    color:white;
+}
+
+#extensions-carousel {
+}

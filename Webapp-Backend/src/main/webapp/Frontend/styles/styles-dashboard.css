@@ -1,0 +1,109 @@
+:root{
+  --thin: 100;
+  --regular: 400;
+  --medium: 500;
+  --semi-bold:600;
+  --bold: 700;
+  --black: 900;
+  
+  --NAV-BG: #FFFFFF;
+  --PAGE-BACKGROUND: #FDFDFD;
+  --SHADOW-COLOR: rgba(0, 0, 0, 0.153);
+  --ACCENT: #3b82f6;
+  --NAV-ITEM-COLOR: black;
+  --NAVBAR-COLOR:white;
+  --CONTAINER-COLOR: #FFFFFF;
+}
+
+body.darkmode {
+  --bs-body-color: var(--NAV-ITEM-COLOR);
+  --bs-body-bg: var(--NAV-BG);
+  --bs-heading-color: var(--NAV-ITEM-COLOR);
+  --bs-link-color: #0066cc;
+  --bs-link-hover-color: #004c99;
+}
+
+body.darkmode .text-muted{
+  color:var(--NAV-ITEM-COLOR) !important;
+}
+
+body.darkmode{
+  color:inherit !important;
+}
+
+.card {
+  background-color: var(--NAV-BG);  
+}
+
+body {
+  color:red !important;
+}
+
+/* Make cards more compact for mobile */
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Adjust font sizes for better mobile display */
+.dashboard-stats h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.dashboard-stats h6 {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.active-light-button {
+  background-color: rgba(138, 59, 245, 0.15); /* your theme purple, soft */
+  border-color: var(--ACCENT);
+  color: var(--ACCENT);
+  transition: 0.3s ease;
+}
+
+/* small circle indicator */
+.light-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #28a745;   /* green = lights ON */
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.6);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.light-indicator.off {
+  background-color: #dc3545;   /* red = lights OFF */
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.6);
+}
+
+@keyframes tempFlash {
+  0% { background-color: var(--ACCENT); color: white; }
+  100% { background-color: #198754; color: white; } /* returns to Bootstrap green */
+}
+
+#thermostatStatus.flash {
+  animation: tempFlash 0.6s ease;
+}
+
+.btn-away-active {
+  background-color: #dc3545; /* Bootstrap red */
+  border-color: #dc3545;
+  color: #ffffff; /* make text white */
+  transition: all 0.3s ease;
+}
+
+.btn-away-active:hover {
+  background-color: #bb2d3b; /* slightly darker red on hover */
+}
+
+#activityList .list-group-item {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

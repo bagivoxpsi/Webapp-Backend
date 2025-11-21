@@ -1,0 +1,36 @@
+:root{
+    --thin: 100;
+    --regular: 400;
+    --medium: 500;
+    --semi-bold:600;
+    --bold: 700;
+    --black: 900;
+    
+    --NAV-BG: #FFFFFF;
+    --PAGE-BACKGROUND: #FDFDFD;
+    --SHADOW-COLOR: rgba(0, 0, 0, 0.153);
+    --ACCENT: #3b82f6;
+    --NAV-ITEM-COLOR: black;
+    --NAVBAR-COLOR:white;
+    --CONTAINER-COLOR: #FFFFFF;
+}
+
+.card {
+    margin-top: 1em;
+    background: var(--PAGE-BACKGROUND);
+    color: var(--NAV-ITEM-COLOR);
+    box-shadow: 0 2px 30px 5px rgba(0, 0, 0, 0.299);
+}
+
+body.darkmode .card img {
+    filter:brightness(0.50); /* darken images in darkmode */
+}
+
+.card img {
+    max-height: 60vh;
+    object-fit: cover;
+}
+
+.btn i {
+    color: inherit;
+}
