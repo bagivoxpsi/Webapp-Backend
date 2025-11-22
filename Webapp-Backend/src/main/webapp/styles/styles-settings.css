@@ -1,0 +1,242 @@
+:root {
+  --thin: 100;
+  --regular: 400;
+  --medium: 500;
+  --semi-bold:600;
+  --bold: 700;
+  --black: 900;
+
+  --primary-color: #3b82f6;
+  --primary-hover: #1d4ed8;
+  --bg-body: #f5f5f5;
+  --bg-white: #ffffff;
+  --bg-light: #fafafa;
+  --bg-nav: #fff;
+  --text-primary: #000000;
+  --text-secondary: #999999;
+  --text-white: white;
+  --border-light: #f0f0f0;
+  --border-gray: #ccc;
+  --toggle-inactive: #ddd;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --text-black: black;
+}
+
+a {
+  text-decoration: none;
+}
+
+a .fa{
+  color: inherit;
+}
+
+body.darkmode {
+  --bg-body: #1a1a1a;
+  --bg-white: #2d2d30;
+  --bg-light: #3e3e42;
+  --bg-nav: #2d2d30;
+  --text-primary: #ffffff;
+  --text-secondary: #d3d3d3;
+  --border-light: #444444;
+  --border-gray: #666666;
+  --shadow-light: rgba(0, 0, 0, 0.3);
+  --text-black: white;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg-body);
+  transition: background-color 0.3s ease;
+}
+
+#theme-switch {
+  height: 50px;
+  width: 50px;
+  padding: 0;
+  border-radius: 30%;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#theme-switch:hover {
+  background-color: var(--primary-hover);
+}
+
+#theme-switch svg {
+  fill: var(--bg-light);
+}
+
+#theme-switch svg:last-child {
+  display: none;
+}
+
+body.darkmode #theme-switch svg:first-child {
+  display: none;
+}
+
+body.darkmode #theme-switch svg:last-child {
+  display: block;
+}
+
+.settings-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 32px 16px 120px 16px;
+}
+
+.top-nav-container {
+  background-color: var(--bg-nav);
+  color: var(--text-black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+#back-button{
+  width: 40px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.app-header {
+  margin: 0;
+  font-size: 20pt;
+  font-weight: var(--regular);
+  flex-grow: 1;
+  text-align: center;
+}
+
+.nav-spacer {
+  width: 40px;
+}
+
+.settings-section {
+  background-color: var(--bg-white);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0px 2px 8px var(--shadow-light);
+  overflow: hidden;
+}
+
+.settings-section-title {
+  font-size: 14pt;
+  font-weight: 600;
+  color: var(--primary-color);
+  padding: 16px 16px 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+}
+
+.settings-item:hover {
+  background-color: var(--bg-light);
+}
+
+.settings-item-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settings-item-title {
+  font-size: 14pt;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.settings-item-description {
+  font-size: 11pt;
+  color: var(--text-secondary);
+}
+
+.settings-item-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toggle-switch {
+  width: 48px;
+  height: 28px;
+  background-color: var(--toggle-inactive);
+  border-radius: 14px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: none;
+  padding: 0;
+}
+
+.toggle-switch.active {
+  background-color: var(--primary-color);
+}
+
+.toggle-switch::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: var(--text-white);
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: left 0.3s;
+}
+
+.toggle-switch.active::after {
+  left: 22px;
+}
+
+.settings-item-arrow {
+  color: var(--border-gray);
+  font-size: 16pt;
+}
+
+.bottom-nav-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  background-color: var(--bg-nav);
+  border-top: 1px solid var(--border-light);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -2px 8px var(--shadow-light);
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 12pt;
+  transition: color 0.2s;
+}
+
+.bottom-nav-item:hover {
+  color: var(--primary-color);
+}

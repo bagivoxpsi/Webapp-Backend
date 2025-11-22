@@ -1,0 +1,25 @@
+:root{
+    --thin: 100;
+    --regular: 400;
+    --medium: 500;
+    --semi-bold:600;
+    --bold: 700;
+    --black: 900;
+    
+    --NAV-BG: #FFFFFF;
+    --PAGE-BACKGROUND: #FDFDFD;
+    --SHADOW-COLOR: rgba(0, 0, 0, 0.153);
+    --ACCENT: #3b82f6;
+    --NAV-ITEM-COLOR: black;
+    --NAVBAR-COLOR:white;
+    --CONTAINER-COLOR: #FFFFFF;
+}
+
+body.darkmode {
+  --NAV-BG: #2d2d30;
+  --PAGE-BACKGROUND: #1e1e1e;
+  --NAV-ITEM-COLOR: #e8e8e8;
+  --CONTAINER_COLOR: #000000;
+  background-color: var(--PAGE-BACKGROUND);
+  color: var(--NAV-ITEM-COLOR);
+}

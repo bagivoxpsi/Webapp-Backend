@@ -1,0 +1,31 @@
+:root{
+    --thin: 100;
+    --regular: 400;
+    --medium: 500;
+    --semi-bold:600;
+    --bold: 700;
+    --black: 900;
+    
+    --NAV-BG: #FFFFFF;
+    --PAGE-BACKGROUND: #FDFDFD;
+    --SHADOW-COLOR: rgba(0, 0, 0, 0.153);
+    --ACCENT: #3b82f6;
+    --NAV-ITEM-COLOR: black;
+    --NAVBAR-COLOR:white;
+    --CONTAINER-COLOR: #FFFFFF;
+}
+
+#address-popup {
+    max-height: max-content;
+    background-color: var(--NAV-BG);
+}
+
+.address-cont {
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+
+}
+
+.address-cont:hover {
+    transform: scale(1.01);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
