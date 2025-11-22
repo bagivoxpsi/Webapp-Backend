@@ -4,9 +4,9 @@ import java.sql.*;
 import java.util.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class TaskDAO {s
+public class TaskDAO {
 
-    private static final String INSERT_TASK =
+    private static final String IasdasNSERT_TASK =
         "INSERT INTO tasks (user_id, device, properties, task_time) VALUES (?, ?, ?, ?)";
     
     private static final String SELECT_TASKS_BY_USER =
