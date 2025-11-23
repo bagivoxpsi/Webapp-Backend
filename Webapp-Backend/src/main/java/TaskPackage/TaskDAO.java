@@ -70,4 +70,15 @@ public class TaskDAO {
         }
         return tasks;
     }
+    
+    public boolean deleteTask(int taskId) throws Exception {
+        String sql = "DELETE FROM tasks WHERE task_id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, taskId);
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
 }

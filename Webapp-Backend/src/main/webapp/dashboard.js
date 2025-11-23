@@ -108,6 +108,55 @@ function addActivity(iconClass, text) {
 
   
 
+  //Chart.js Code
+  const ctx = document.getElementById('energyBarChart').getContext('2d');
+  let tickColorLight = "#333333";
+  let tickColorDark = "#ffffff";
+  let tickColor = tickColorLight;
+  let darkmode = localStorage.getItem("darkmode");
+  if(darkmode==="active"){
+      tickColor=tickColorDark;
+  }
+  else{
+      tickColor=tickColorLight;
+  }
+  new Chart(ctx, {
+      type: 'bar',
+      data: {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+          label: 'Energy (kWh)',
+          data: [12, 14, 13, 15, 17, 14, 16],
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1,
+          borderRadius: 5
+      }]
+      },
+      options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+          y: {
+          beginAtZero: true,
+          ticks: {
+              color: tickColor
+          }
+          },
+          x: {
+          ticks: {
+              color: tickColor
+          }
+          }
+      },
+      plugins: {
+          legend: {
+          display: false
+          }
+      }
+      }
+  });
+  
   
 });
 

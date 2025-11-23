@@ -14,6 +14,12 @@ const taskList = document.getElementById("task-list");
 let darkmode = localStorage.getItem("darkmode");
 
 let selectedDevice = null;
+
+let selectMode = false;
+const selectedTasks = new Set(); // will store selected task IDs
+
+const userId = 1;
+
 init();
 
 btn_addTask.addEventListener("click",openMenu);
@@ -21,8 +27,53 @@ popupExit.addEventListener("click", exitMenu);
 deviceMenu.addEventListener("change", loadProperties)
 btn_submitTask.addEventListener("click",submitTask);
 btn_cancelTask.addEventListener("click",exitMenu);
+document.addEventListener("DOMContentLoaded", loadTasks);
 
-const userId = 1;
+const btnSelectTasks = document.getElementById("select-tasks-button");
+
+btnSelectTasks.addEventListener("click", () => {
+    selectMode = !selectMode;
+
+    if (selectMode) {
+        btnSelectTasks.textContent = "Exit Select Mode";
+        // Make all cards selectable
+        document.querySelectorAll(".task-card").forEach(card => {
+            card.classList.add("selectable");
+        });
+    } else {
+        btnSelectTasks.textContent = "Select Tasks";
+        selectedTasks.clear();
+        document.querySelectorAll(".task-card").forEach(card => {
+            card.classList.remove("selectable", "selected");
+        });
+        updateDeleteButton(); // hide delete button if nothing selected
+    }
+});
+
+
+
+const btnDeleteSelected = document.getElementById("delete-selected-button");
+
+btnDeleteSelected.addEventListener("click", () => {
+    if (selectedTasks.size === 0) {
+        alert("No tasks selected!");
+        return;
+    }
+
+    if (!confirm("Are you sure you want to delete the selected tasks?")) return;
+
+    const tasksToDelete = Array.from(selectedTasks);
+
+    Promise.all(tasksToDelete.map(taskId =>
+        fetch(`/Webapp-Backend/deleteTask?taskId=${taskId}`, { method: "POST" })
+    ))
+    .then(() => {
+        selectedTasks.clear();
+        updateDeleteButton();
+        loadTasks(); // refresh list and hide Select Tasks button if empty
+    })
+    .catch(err => console.error("Error deleting tasks:", err));
+});
 
 function loadTasks() {
 	fetch(`/Webapp-Backend/getTasks?userId=${userId}`)
@@ -30,42 +81,19 @@ function loadTasks() {
         .then(tasks => {
             taskList.innerHTML = ""; // clear existing
             tasks.forEach(task => {
-                const taskDiv = document.createElement("div");
-                taskDiv.classList.add("task-card", "p-2", "border", "rounded", "mb-2");
-
-                const displayTime = formatTime12Hour(task.taskTime);
-                const header = document.createElement("div");
-                header.classList.add("fw-bold");
-                header.textContent = `${task.device} at ${displayTime}`;
-                taskDiv.appendChild(header);
-
-                for (const [key, value] of Object.entries(task.properties)) {
-                    if (!value) continue;
-                    const propLine = document.createElement("div");
-                    if (key.toLowerCase().includes("color")) {
-                        const colorBox = document.createElement("span");
-                        colorBox.style.display = "inline-block";
-                        colorBox.style.width = "16px";
-                        colorBox.style.height = "16px";
-                        colorBox.style.backgroundColor = value;
-                        colorBox.style.marginLeft = "8px";
-                        colorBox.style.verticalAlign = "middle";
-                        colorBox.style.border = "1px solid #000";
-                        propLine.textContent = key + ": ";
-                        propLine.appendChild(colorBox);
-                    } else {
-                        propLine.textContent = `${key}: ${value}`;
-                    }
-                    taskDiv.appendChild(propLine);
-                }
-
-                taskList.appendChild(taskDiv);
-            });
+				const taskDiv = createTaskCard(task);
+				taskList.appendChild(taskDiv);
+			});
+			
+			if (tasks.length > 0) {
+			    btnSelectTasks.classList.remove("d-none");
+			} else {
+			    btnSelectTasks.classList.add("d-none");
+			}
         })
         .catch(err => console.error("Error loading tasks:", err));
 }
 
-document.addEventListener("DOMContentLoaded", loadTasks);
 
 function submitTask(event) {
     event.preventDefault();
@@ -79,7 +107,7 @@ function submitTask(event) {
     const tasktimeInput = document.getElementById("task-time");
     const taskTime = tasktimeInput.value;
 
-    // 1️⃣ Collect properties into an object
+    // Build the properties object
     const propertiesObj = {};
     const rows = deviceProperties.querySelectorAll(".row");
     rows.forEach(row => {
@@ -97,16 +125,16 @@ function submitTask(event) {
         propertiesObj[name] = value;
     });
 
-    // 2️⃣ Create taskInfo AFTER properties are collected
+    // Build the task object
     const taskInfo = {
-        userId: 1,  // hard-coded for now
+        userId: userId,
         device: selectedDevice,
         properties: propertiesObj,
         taskTime: taskTime
     };
 
-    // 3️⃣ Send taskInfo to backend
-    fetch(`/Webapp-Backend/addTask?userId=${userId}`, {
+    // Send to backend
+    fetch(`/Webapp-Backend/addTask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(taskInfo)
@@ -114,27 +142,60 @@ function submitTask(event) {
     .then(res => res.json())
     .then(data => {
         console.log("Task added:", data);
-        // Optionally update UI here
         exitMenu();
+        // Refresh the task list to include the new task
+        loadTasks();
     })
     .catch(err => console.error("Error adding task:", err));
 
-    // 4️⃣ Update UI locally
-    console.log("Task submitted:", taskInfo);
-    taskDetails.push(taskInfo);
+    // Clear local form/UI state
+    exitMenu();
+}
 
+function deleteTask(taskId) {
+    fetch(`/Webapp-Backend/deleteTask?taskId=${taskId}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Delete response:", data);
+            // refresh the task list (this will update the Select Tasks button)
+            loadTasks();
+            selectedTasks.clear();
+            updateDeleteButton();
+        })
+        .catch(err => console.error("Error deleting task:", err));
+}
+
+
+
+// Everything below is old code mostly for formatting and styling purposes 
+
+// hides delete button if no tasks selected
+function updateDeleteButton() {
+    if (selectedTasks.size > 0) {
+        btnDeleteSelected.classList.remove("d-none");
+    } else {
+        btnDeleteSelected.classList.add("d-none");
+    }
+}
+
+// CREATES THE TASK HTML CARDS
+function createTaskCard(task) {
     const taskDiv = document.createElement("div");
-    taskDiv.classList.add("task-card", "p-2", "border", "rounded", "mb-2");
+    taskDiv.classList.add("task-card", "p-2", "rounded", "mb-2");
+    taskDiv.dataset.taskId = task.taskId;
 
-    const displayTime = formatTime12Hour(taskInfo.taskTime);
+    // Header: Device + Time
+    const displayTime = formatTime12Hour(task.taskTime);
     const header = document.createElement("div");
     header.classList.add("fw-bold");
-    header.textContent = `${taskInfo.device} at ${displayTime}`;
+    header.textContent = `${task.device} at ${displayTime}`;
     taskDiv.appendChild(header);
 
-    for (const [key, value] of Object.entries(taskInfo.properties)) {
+    // Properties
+    for (const [key, value] of Object.entries(task.properties)) {
         if (!value) continue;
         const propLine = document.createElement("div");
+
         if (key.toLowerCase().includes("color")) {
             const colorBox = document.createElement("span");
             colorBox.style.display = "inline-block";
@@ -143,18 +204,45 @@ function submitTask(event) {
             colorBox.style.backgroundColor = value;
             colorBox.style.marginLeft = "8px";
             colorBox.style.border = "1px solid #000";
+
             propLine.textContent = key + ": ";
             propLine.appendChild(colorBox);
         } else {
             propLine.textContent = `${key}: ${value}`;
         }
+
         taskDiv.appendChild(propLine);
     }
 
-    taskList.appendChild(taskDiv);
-    exitMenu();
-}
+    // Individual Delete Button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add("btn", "btn-danger", "btn-sm", "mt-2");
+    deleteBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // prevent triggering select mode
+        deleteTask(task.taskId);
+    });
+    taskDiv.appendChild(deleteBtn);
 
+    // Click handler for Select Mode
+	taskDiv.addEventListener("click", () => {
+	    if (!selectMode) return;
+
+	    const taskId = task.taskId;
+
+	    if (selectedTasks.has(taskId)) {
+	        selectedTasks.delete(taskId);
+	        taskDiv.classList.remove("selected");
+	    } else {
+	        selectedTasks.add(taskId);
+	        taskDiv.classList.add("selected");
+	    }
+
+	    updateDeleteButton();
+	});
+	
+    return taskDiv;
+}
 
 function formatTime12Hour(time24) {
     if (!time24) return "";

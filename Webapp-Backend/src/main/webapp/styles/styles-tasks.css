@@ -67,6 +67,22 @@
     flex-grow: 1;
 }
 
+#task-list .task-card.selected {
+    border: 3px solid #3399ff !important;
+}
+
+.task-card {
+    border: 1px solid #ccc; /* default border */
+    cursor: default;
+    transition: 0.2s;
+    border-radius: 0.5rem; /* optional, keeps rounded effect */
+}
+
+.task-card.selectable {
+    cursor: pointer;
+    border: 2px dashed #999; /* optional visual hint for selectable mode */
+}
+
 .popup-content-header{
     text-align: center;
     display: flex;
