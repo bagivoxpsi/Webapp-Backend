@@ -1,4 +1,4 @@
-package TaskPackage;
+package AddressPackage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,11 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/getTasks")
-public class GetTasksServlet extends HttpServlet {
+@WebServlet("/getAddresses")
+public class GetAddressesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    private TaskDAO taskDAO = new TaskDAO();
+	private AddressDAO addressDAO = new AddressDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -20,9 +20,9 @@ public class GetTasksServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            List<Task> tasks = taskDAO.getTasksByUser(userId);
+            List<Address> addresses = addressDAO.getAddressesByUser(userId);
             response.setContentType("application/json");
-            response.getWriter().write(mapper.writeValueAsString(tasks));
+            response.getWriter().write(mapper.writeValueAsString(addresses));
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("{\"status\":\"error\",\"message\":\"" + e.getMessage() + "\"}");

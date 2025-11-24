@@ -1,37 +1,37 @@
-package TaskPackage;
+package AddressPackage;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/deleteTask")
-public class DeleteTaskServlet extends HttpServlet {
+@WebServlet("/deleteAddress")
+public class DeleteAddressServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    private TaskDAO taskDAO = new TaskDAO();
+    private AddressDAO addressDAO = new AddressDAO();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String taskIdParam = request.getParameter("taskId");
+        String addressIdParam = request.getParameter("addressId");
 
-        if (taskIdParam == null) {
+        if (addressIdParam == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"status\":\"error\",\"message\":\"Missing taskId\"}");
+            response.getWriter().write("{\"status\":\"error\",\"message\":\"Missing addressId\"}");
             return;
         }
 
-        int taskId = Integer.parseInt(taskIdParam);
+        int addressId = Integer.parseInt(addressIdParam);
 
         try {
-            boolean deleted = taskDAO.deleteTask(taskId);
+            boolean deleted = addressDAO.deleteAddress(addressId);
 
             if (deleted) {
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("{\"status\":\"success\"}");
             } else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                response.getWriter().write("{\"status\":\"error\",\"message\":\"Task not found\"}");
+                response.getWriter().write("{\"status\":\"error\",\"message\":\"Address not found\"}");
             }
 
         } catch (Exception e) {

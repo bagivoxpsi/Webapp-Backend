@@ -27,16 +27,8 @@ body.darkmode .text-muted{
   color:var(--NAV-ITEM-COLOR) !important;
 }
 
-body.darkmode{
-  color:inherit !important;
-}
-
 .card {
   background-color: var(--NAV-BG);  
-}
-
-body {
-  color:red !important;
 }
 
 /* Make cards more compact for mobile */

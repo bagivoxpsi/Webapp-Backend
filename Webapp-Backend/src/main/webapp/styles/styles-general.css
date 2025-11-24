@@ -24,6 +24,10 @@ body.darkmode {
   color: var(--NAV-ITEM-COLOR);
 }
 
+#address-selector {
+	max-width: min(45vw, 350px);
+}
+
 .navbar{
     background-color: var(--NAV-BG);
 }

@@ -10,6 +10,8 @@ import java.io.IOException;
 
 @WebServlet("/addTask")
 public class AddTaskServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
     private TaskDAO taskDAO = new TaskDAO();
 
     @Override
