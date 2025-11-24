@@ -1,43 +1,48 @@
-let users = [];
-
-document.getElementById("signupForm").addEventListener("submit", (e) => {
+document.getElementById("signupForm").addEventListener("submit", async (e) => {
   e.preventDefault()
 
   const fullName = document.getElementById("fullName").value.trim()
   const email = document.getElementById("email").value.trim()
   const age = document.getElementById("age").value
+  const password = document.getElementById("password").value.trim()
 
-
-  if (!validateForm(fullName, email, age)) {
+  if (!validateForm(fullName, email, age, password)) {
     return
   }
 
-  const newUser = {
-    id: Date.now(),
-    fullName: fullName,
-    email: email,
-    age: age,
+  try {
+    const response = await fetch("/Webapp-Backend/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ fullName, email, age: Number.parseInt(age), password }),
+    })
+
+    const data = await response.json()
+
+    if (data.status === "success") {
+      // Store user data in localStorage
+      localStorage.setItem("userEmail", data.user.email)
+      localStorage.setItem("userId", data.user.id)
+      localStorage.setItem("userFullName", data.user.fullName)
+      localStorage.setItem("userAge", data.user.age)
+
+      alert("Registration submitted successfully!")
+
+      // Redirect to dashboard
+      window.location.href = "../dashboard.html"
+    } else {
+      alert(data.message || "Signup failed")
+    }
+  } catch (error) {
+    console.error("Signup error:", error)
+    alert("An error occurred during signup")
   }
-
-
-  users.push(newUser)
-
-
-  document.getElementById("welcomeTitle").textContent = `Hello, ${fullName}!`
-
-
-  alert("Registration submitted successfully!")
-
-
-  document.getElementById("signupForm").reset()
-
-
-  renderUserCards()
 })
 
-
-function validateForm(fullName, email, age) {
-
+function validateForm(fullName, email, age, password) {
   if (!fullName) {
     alert("Name is required")
     return false
@@ -47,7 +52,6 @@ function validateForm(fullName, email, age) {
     alert("Name must be at least 2 characters")
     return false
   }
-
 
   if (!email) {
     alert("Email is required")
@@ -63,7 +67,7 @@ function validateForm(fullName, email, age) {
   const hasValidDomain = validDomains.some((domain) => email.includes(domain))
 
   if (!hasValidDomain) {
-    showToast("Email must end with @gmail.com, @hotmail.com, @outlook.com, or @yahoo.com", "danger")
+    alert("Email must end with @gmail.com, @hotmail.com, @outlook.com, or @yahoo.com")
     return false
   }
 
@@ -74,67 +78,14 @@ function validateForm(fullName, email, age) {
 
   const ageNum = Number.parseInt(age)
   if (ageNum < 18 || ageNum > 100) {
-    showToast("Age must be between 18 and 100", "danger")
+    alert("Age must be between 18 and 100")
+    return false
+  }
+
+  if (!password) {
+    alert("Password is required")
     return false
   }
 
   return true
-}
-
-function renderUserCards() {
-  const container = document.getElementById("userCardsContainer")
-  container.innerHTML = ""
-
-  users.forEach((user) => {
-    const cardHTML = `
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="card shadow border-0 h-100 user-card">
-                    <div class="card-body">
-                        <h3 class="card-title h5 fw-bold mb-3">${user.fullName}</h3>
-                        <p class="card-text mb-2">
-                            <strong>Email:</strong> ${user.email}
-                        </p>
-                        <p class="card-text mb-0">
-                            <strong>Age:</strong> ${user.age}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        `
-    container.innerHTML += cardHTML
-  })
-}
-
-function showToast(message, type = "success") {
-  const toastContainer = document.getElementById("toastContainer")
-
-  const toastId = `toast-${Date.now()}`
-
-  const bgClass = type === "danger" ? "bg-danger" : "bg-success"
-
-  const toastHTML = `
-    <div id="${toastId}" class="toast align-items-center text-white ${bgClass} border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body">
-          ${message}
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
-  `
-
-  toastContainer.insertAdjacentHTML("beforeend", toastHTML)
-
-
-  const toastElement = document.getElementById(toastId)
-  const toast = new bootstrap.Toast(toastElement, {
-    autohide: true,
-    delay: 3000,
-  })
-
-  toast.show()
-
-  toastElement.addEventListener("hidden.bs.toast", () => {
-    toastElement.remove()
-  })
 }
