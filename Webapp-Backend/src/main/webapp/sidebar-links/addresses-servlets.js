@@ -6,7 +6,7 @@ const popupContainer = document.getElementById("popup-container");
 const addressInput = document.getElementById("address");
 const addressList = document.getElementById("address-list");
 
-const userId = Number(localStorage.getItem("userId"));
+const userId = 1;
 
 let editingAddress = null; // keeps track of which address is being edited
 let user_addresses = [];
@@ -51,10 +51,7 @@ async function submitAddress(event) {
 
 	btn_submit.disabled = true;
 	btn_submit.textContent = "Saving...";
-
-	console.log({ userId, address: addressText });
 	
-	console.log("userId before fetch:", userId)
     try {
         if (editingAddress) {
             const addressId = editingAddress.dataset.id;

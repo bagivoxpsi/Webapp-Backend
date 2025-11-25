@@ -3,7 +3,7 @@
 const menu = document.getElementById("address-selector");
 let user_addresses = [];
 
-const userId = Number(localStorage.getItem("userId"));
+const userId = 1;
 
 window.addEventListener("pageshow", () => {
     loadAddresses(userId);

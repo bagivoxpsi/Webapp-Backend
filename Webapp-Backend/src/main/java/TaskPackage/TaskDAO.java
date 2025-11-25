@@ -17,11 +17,6 @@ public class TaskDAO {
     private static final String PASSWORD = "Sa@262206"; // replace
 
     private Connection getConnection() throws SQLException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("MySQL driver not found in Tomcat/lib", e);
-        }
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
