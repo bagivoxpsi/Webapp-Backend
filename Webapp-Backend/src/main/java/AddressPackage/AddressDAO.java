@@ -23,12 +23,20 @@ public class AddressDAO {
     private static final String PASSWORD = "0000"; // replace
 
     private Connection getConnection() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL driver not found in Tomcat/lib", e);
+        }
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
     // Save address
     public void saveAddress(Address address) throws Exception {
-
+        if (!userExists(address.getUserId())) {
+            throw new Exception("User with ID " + address.getUserId() + " does not exist");
+        }
+    	
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(INSERT_ADDRESS, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -88,4 +96,16 @@ public class AddressDAO {
         }
     }
 
+    public boolean userExists(int userId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM users WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            return false;
+        }
+    }
 }

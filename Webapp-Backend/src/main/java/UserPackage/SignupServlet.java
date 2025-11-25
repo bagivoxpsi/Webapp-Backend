@@ -24,10 +24,19 @@ public class SignupServlet extends HttpServlet {
 
         try {
             // Parse JSON request body
-            Map<String, String> userData = mapper.readValue(request.getReader(), Map.class);
-            String email = userData.get("email");
-            String password = userData.get("password");
+        		Map<String, Object> userData = mapper.readValue(request.getReader(), Map.class);
+            String email = (String) userData.get("email");
+            String password = (String) userData.get("password");
+            String fullName = (String) userData.get("fullName");
+            Integer age = (Integer) (userData.get("age"));
 
+            if (fullName == null || fullName.trim().length() < 2) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"status\":\"error\",\"message\":\"Full name is required\"}");
+                return;
+            }
+            
+            
             if (email == null || password == null) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().write("{\"status\":\"error\",\"message\":\"Email and password required\"}");
@@ -44,6 +53,8 @@ public class SignupServlet extends HttpServlet {
             User user = new User();
             user.setEmail(email);
             user.setPassword(password);
+            user.setAge(age);
+            user.setFullName(fullName);
 
             try {
                 userDAO.registerUser(user);

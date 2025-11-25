@@ -29,7 +29,7 @@ CREATE TABLE `addresses` (
   PRIMARY KEY (`address_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `addresses` (
 
 LOCK TABLES `addresses` WRITE;
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
-INSERT INTO `addresses` VALUES (8,1,'Main Apartment'),(19,1,'Some Other Address'),(20,1,'Vacation Address');
+INSERT INTO `addresses` VALUES (26,4,'Default Address'),(28,5,'Default'),(29,8,'Address 1\\');
 /*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +58,7 @@ CREATE TABLE `tasks` (
   PRIMARY KEY (`task_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` VALUES (40,1,'Light','{\"Power\":\"On\",\"Brightness\":\"83\",\"Color\":\"#ff0000\"}','00:00:00'),(41,1,'Light','{\"Power\":\"On\",\"Brightness\":\"50\",\"Color\":\"#59ff00\"}','01:00:00'),(42,1,'Light','{\"Power\":\"On\",\"Brightness\":\"14\",\"Color\":\"#0400ff\"}','02:00:00'),(43,1,'Thermostat','{\"Power\":\"On\",\"Temperature\":\"10\"}','08:00:00'),(45,1,'Thermostat','{\"Power\":\"Off\",\"Temperature\":\"\"}','00:00:00'),(46,1,'Light','{\"Power\":\"On\",\"Brightness\":\"50\",\"Color\":\"#000000\"}','00:00:00');
+INSERT INTO `tasks` VALUES (49,4,'Light','{\"Power\":\"Off\",\"Brightness\":\"50\",\"Color\":\"#000000\"}','00:00:00'),(51,5,'Light','{\"Power\":\"On\",\"Brightness\":\"100\",\"Color\":\"#004cff\"}','00:00:00'),(52,8,'Thermostat','{\"Power\":\"Off\",\"Temperature\":\"\"}','00:00:00'),(53,8,'Light','{\"Power\":\"Off\",\"Brightness\":\"0\",\"Color\":\"#000000\"}','00:00:00'),(54,8,'Speaker','{\"Power\":\"Off\",\"Volume\":\"14\",\"Track\":\"\"}','00:00:00');
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,9 +82,13 @@ CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
+  `full_name` varchar(128) NOT NULL,
+  `age` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `email` (`email`),
+  CONSTRAINT `legal_age` CHECK ((`age` >= 18)),
+  CONSTRAINT `legal_age1` CHECK ((`age` <= 100))
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +97,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'alice@example.com','password123');
+INSERT INTO `users` VALUES (3,'bkhalid@gmail.com','password','Baraa Khalid',20),(4,'NewUser@gmail.com','NewUserPassword','New User',30),(5,'hj@gmail.com','12345678','h j',20),(7,'bkhalid1@gmail.com','123456789','Baraa Khalid',20),(8,'Bkhalid25@gmail.com','123456789','Baraa Khalid',20);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -106,4 +110,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-23 22:47:39
+-- Dump completed on 2025-11-25  4:04:02

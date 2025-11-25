@@ -19,7 +19,7 @@ public class CreateAddressServlet extends HttpServlet {
             throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Address address = mapper.readValue(request.getReader(), Address.class);
-
+        
         try {
             addressDAO.saveAddress(address);
             response.setStatus(HttpServletResponse.SC_OK);
