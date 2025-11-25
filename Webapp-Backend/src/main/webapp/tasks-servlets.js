@@ -18,7 +18,7 @@ let selectedDevice = null;
 let selectMode = false;
 const selectedTasks = new Set(); // will store selected task IDs
 
-const userId = 1;
+const userId = Number(localStorage.getItem("userId"));
 
 init();
 

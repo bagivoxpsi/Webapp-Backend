@@ -5,7 +5,7 @@ import java.sql.*;
 public class UserDAO {
 
     private static final String INSERT_USER =
-        "INSERT INTO users (email, password) VALUES (?, ?)";
+        "INSERT INTO users (email, password, full_name, age) VALUES (?, ?, ?, ?)";
     
     private static final String SELECT_USER_BY_EMAIL =
         "SELECT * FROM users WHERE email = ?";
@@ -30,6 +30,11 @@ public class UserDAO {
     private static final String PASSWORD = "0000"; // replace
 
     private Connection getConnection() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL driver not found in Tomcat/lib", e);
+        }
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
@@ -40,6 +45,8 @@ public class UserDAO {
 
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getFullName());
+            stmt.setInt(4, user.getAge());
 
             stmt.executeUpdate();
             
