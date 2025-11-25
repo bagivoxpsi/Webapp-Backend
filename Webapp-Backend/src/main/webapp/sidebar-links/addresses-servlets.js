@@ -20,7 +20,7 @@ async function loadAddresses(userId) {
     try {
         // Fetch addresses (list) from CreateAddressServlet
         const response = await fetch(`/Webapp-Backend/getAddresses?userId=${userId}`);
-        if (!response.ok) throw new Error("Failed to fetch addresses");
+        if (!response.ok) throw new Error("Failed to fetch addresses");	
 
 		// The address list is returned as a json object
         const addresses = await response.json();

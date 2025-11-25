@@ -14,7 +14,7 @@ public class TaskDAO {
     
     private static final String URL = "jdbc:mysql://localhost:3306/smart_home";
     private static final String USER = "root";
-    private static final String PASSWORD = "0000"; // replace
+    private static final String PASSWORD = "Sa@262206"; // replace
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
