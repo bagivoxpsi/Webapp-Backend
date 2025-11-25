@@ -14,9 +14,18 @@ public class TaskDAO {
     
     private static final String URL = "jdbc:mysql://localhost:3306/smart_home";
     private static final String USER = "root";
+<<<<<<< HEAD
     private static final String PASSWORD = "752005"; // replace
+=======
+    private static final String PASSWORD = "Sa@262206"; // replace
+>>>>>>> a7472e51afaec0003f45748068d19440e7c5b103
 
     private Connection getConnection() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL driver not found in Tomcat/lib", e);
+        }
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
