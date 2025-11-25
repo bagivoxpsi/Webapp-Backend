@@ -26,4 +26,6 @@ public class DashboardStats {
     
     public double getDailySavings() { return dailySavings; }
     public void setDailySavings(double dailySavings) { this.dailySavings = dailySavings; }
+    
+    
 }

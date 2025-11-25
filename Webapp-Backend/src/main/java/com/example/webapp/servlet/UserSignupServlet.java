@@ -38,5 +38,8 @@ public class UserSignupServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.print(jsonResponse);
         out.flush();
+        
+        
+        
     }
 }

@@ -65,4 +65,6 @@ public class DashboardStatsServlet extends HttpServlet {
             stats.getSecurityEvents(), stats.getTemperatureAvg(), stats.getDailySavings()
         );
     }
+    
+    
 }
