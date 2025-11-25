@@ -8,6 +8,15 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+<<<<<<< HEAD
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v10.1">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/gson-2.10.1.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-connector-j-9.1.0.jar"/>
+=======
 	<classpathentry kind="lib" path="C:/Users/ksaif/Downloads/mysql-connector-j-9.1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ksaif/Downloads/jackson-annotations-2.20.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ksaif/Downloads/jackson-core-2.20.1.jar"/>
@@ -17,5 +26,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
+>>>>>>> a7472e51afaec0003f45748068d19440e7c5b103
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
