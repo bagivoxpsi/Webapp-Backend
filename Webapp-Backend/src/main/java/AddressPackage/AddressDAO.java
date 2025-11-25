@@ -20,7 +20,7 @@ public class AddressDAO {
     
     private static final String URL = "jdbc:mysql://localhost:3306/smart_home";
     private static final String USER = "root";
-    private static final String PASSWORD = "Sa@2622006"; // replace
+    private static final String PASSWORD = "0000"; // replace
 
     private Connection getConnection() throws SQLException {
         try {
